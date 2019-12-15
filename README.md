@@ -1,1 +1,2 @@
-# python_study
+# 2019 传智播客python 就业班学习记录
+
