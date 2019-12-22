@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
-# File  : server_basic.py
+# File  : mult_web.py
 # Author: water
-# Date  : 2019/12/15
+# Date  : 2019/12/22
+# Desc : 多线程实现思路
+
 import socket
-import re
+import re,threading
 
 def service_client(new_socket):
+    # 接收客户端发送过来的请求（客户端使用浏览器）
+    # 然后根据用户访问不同的页面，返回不同的内容（temp）
     # 1.接收浏览器发来的请求内容
     request = new_socket.recv(1024)
     # GET /index.html HTTP / 1.1
@@ -31,6 +35,7 @@ def service_client(new_socket):
         new_socket.send(response.encode('utf-8'))
         new_socket.send(data)
         # 4.关闭套接字
+        # print("zi:",id(new_socket))
         new_socket.close()
 
 
@@ -47,7 +52,13 @@ def main():
         # 4.等待客户的访问，返回客户套接字及ip
         new_socket, client_address = tcp_server_socket.accept()
         # 5.向客户返回内容
-        service_client(new_socket)
+        # service_client(new_socket)
+        p = threading.Thread(target=service_client,args=(new_socket,)) #args要传入元组
+        p.start()
+        # print("main:",id(new_socket))
+        # new_socket.close()
+        # 多线程不能关闭主线程中的new_socket，因为多线程之间是共享变量，不会复制，所以不能在主线程中关闭
+
 
 
 if __name__ == "__main__":

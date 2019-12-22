@@ -25,8 +25,9 @@ def main():
     tcp_server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
     # 2.绑定ip
     tcp_server_socket.bind(("",7890))
-    # 3.监听端口
+    # 3.监听端口--里面的数量表示socket排队的个数
     tcp_server_socket.listen(128)
+
     while True:
         # 4.等待客户的访问，返回客户套接字及ip
         new_socket, client_address = tcp_server_socket.accept()
