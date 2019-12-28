@@ -7,7 +7,7 @@
 #         浅拷贝 copy.copy：只拷贝外层列表，不拷贝二、三级以内的列表，但对元组不起作用，因为元组不可变，相当于等号赋值。
 #         如果元组里面有列表，此时用deepcopy则会进行拷贝。
 #         列表l切片 l[:] 的作用与copy.copy(l)效果是一样的
-#         字典d1  d2 = d1.copy() 生成d2的id与d1不同，但是d2、d1的value指向相同。
+#         字典d1  d2 = d1.copy() 生成d2的key与d1不同，但是d2、d1的value指向相同。
 
 import copy
 
