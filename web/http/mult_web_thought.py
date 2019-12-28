@@ -34,6 +34,7 @@ while True:
                 client_socket_list.remove(client)
                 client.close()
 
+
 ##version 2.0
 client_socket_list = list()
 while True:
