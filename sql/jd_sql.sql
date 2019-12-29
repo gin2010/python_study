@@ -118,3 +118,58 @@ select ...
 update ...
 update ...
 COMMIT; 
+# 新建索引(修改了数据结构，构成树状结构B-TREE类型)
+create index title_index on goods(title(10));
+# 查看索引
+show index from goods; 
+# 删除索引
+drop index title_index on goods;
+# 查看语句执行时间
+set profiling =1;
+show profiling;
+# 创建用户(8.0以上版本不允许使用grant)
+create user 'xiaoxin'@'localhost' identified by '123456';
+# 修改密码,password函数可以对密码加密，然后刷新即可
+update user set authentication_string =PASSWORD('a123456') where user =xiaoxin;
+# 删除用户
+delete from user where user = xiaoxin;
+drop user 'xiaoxin' @'localhost'; # 推荐
+#赋权：grant 权限 on 数据库(表) to '用户名'@'访问主机' identified by '密码';
+grant select on jd.* to 'xiaoxin' @'localhost';
+grant all privileges on jd.* to "xiaobai" @'localhost';
+# 修改权限
+grant select ,insert on jd.* to 'xiaoxin' @'localhost' with grant option;
+flush privileges; #刷新权限
+# 远程登陆不上
+vim /etc/mysql/mysql.conf.d/mysqld.cnf #ubuntu系统里的，将里面127.0.0.1注释掉
+# 主从数据库
+## 读写分离：主库写、从库查询
+## 数据备份：主从互为备份
+## 负载均衡：
+
+# 主从服务器搭建
+## 1.数据库备份
+mysqldump -uroot -proot123456 jd >jd_bak.sql
+mysqldump -uroot -proot123456 --all-databases --lock-all-tables > master_bak.sql
+## 数据库恢复，由于备份的里面没有库的新建命令，所以先新建数据库，再执行下面的命令
+## 如果加了--all-databases，就不用新建数据库了
+## 2.在从库中导入主库目前的全部数据
+mysql -uroot -p jd2 < jd_bak.sql
+## 3.打开bin_log日志
+## 开启主服务器配置文件的bin log 日志，关掉log bin的注释，再重启mysql服务
+## 从服务器的bin log日志不能打开
+## 然后server_id的值主服务器设置为1，从服务器设置为2或其他值，不能相同
+vim /etc/mysql/mysql.conf.d/mysqld.cnf 
+## 4.新建slave用户并赋权，用于从库连接主库使用
+create user 'slave'@'%' identified by 'slave';
+grant REPLICATION slave on *.* to 'slave'@'%';
+flush privileges;
+## 5.从库配置master
+## 查询主库bin_log名字
+show master status;
+## 从库连接主库,master_host为主库ip、master_log_file日志文件名、master_log_pos日志文件位置
+change master to master_host='192.168.22.1',master_user='slave',master_password='slave',
+master_log_file='mysql-bin.000010',master_log_pos=14604
+## 查看是否连接成功，在从库中查看Slave_IO_Running、Slave_SQL_Running是否是yes
+show master status \G;
+
