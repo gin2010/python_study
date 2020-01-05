@@ -2,7 +2,7 @@
 # @Date : 2019-12-27
 # @Author : water
 # @Version  : v1.0
-# @Desc  :
+# @Desc  :参数传递问题
 
 def test2(a, b, *args, **kwargs):
     print("--------test2---------")

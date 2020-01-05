@@ -2,7 +2,7 @@
 # @Date : 2019-12-27
 # @Author : water
 # @Version  : v1.0
-# @Desc  :
+# @Desc  :子类继承父类方法，并增加自己的功能
 
 class Parent(object):
 
@@ -22,7 +22,6 @@ class Child_LBJ(Parent):
     def eat(self,food,water,milk):
         super().eat(food,water)
         print("child eat ", milk)
-        super().eat(food,water)
 
 
 def main():
