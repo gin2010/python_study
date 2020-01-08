@@ -12,5 +12,10 @@ Django笔记
 	tests.py：写测试代码的文件
 	views.py：接收请求并处理
 	admin.py：网站的后台管理相关的文件
-	
-
+3.对应用进行注册
+	在setting.py中INSTALLED_APPS添加booktest
+4.生成数据库表结构（orm框架）
+	在model.py自定义一个类继承models.Model，并增加数据库表名
+	生成迁移文件：python manage.py makemigrations
+	生成数据库表：python manage.py migrate   （默认使用的是sqllite数据库，id会自动生成）
+5.进入django终端：python manage.py shell
