@@ -1,0 +1,16 @@
+Django笔记
+1.创建一个项目test1
+	django-admin startproject test1
+	目录结构：
+	settings.py：项目的配置文件
+	urls.py：url路由配置
+	wsgi.py：web服务器与django框架交互的入口
+	manage.py：项目应用管理文件
+2.创建应用python manage.py startapp booktest
+	目录结构：
+	models.py：数据库相关的内容
+	tests.py：写测试代码的文件
+	views.py：接收请求并处理
+	admin.py：网站的后台管理相关的文件
+	
+

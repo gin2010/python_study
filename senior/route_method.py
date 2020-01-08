@@ -13,6 +13,7 @@ def controller(url):
         return call_func
     return dict_func
 
+
 @controller("/index.html")
 def index():
     print("-----index------")
@@ -61,4 +62,4 @@ def main2():
 
 if __name__ == "__main__":
     main1()
-    main2()
+    # main2()

@@ -12,6 +12,7 @@ class Parent(object):
     def eat(self,food,water):
         print("parent eat ",food)
         print("parent eat ",water)
+        return "parent"
 
 
 class Child_LBJ(Parent):

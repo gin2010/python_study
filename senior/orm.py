@@ -2,7 +2,7 @@
 # File  : orm.py.py
 # Author: water
 # Date  : 2020/1/5
-# Desc  : orm思想：对象-关系映射
+# Desc  : orm思想：对象-关系映射，用于操作mysql数据库
 class ModelMetaclass(type):
     def __new__(cls,name,bases,attrs):
         mappings = dict()
