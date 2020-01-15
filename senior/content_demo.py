@@ -2,7 +2,7 @@
 # File  : content_demo.py
 # Author: water
 # Date  : 2019/12/28
-# Desc  : content上下文管理器
+# Desc  : content上下文管理器，必须用with才能关闭
 from contextlib import contextmanager
 
 # 第一种使用装饰器来实现上下文管理器
@@ -37,10 +37,12 @@ class File(object):
         self.mode = mode
 
     def __enter__(self):
+        print("__exit___")
         self.f = open(self.file,self.mode)
         return self.f
 
     def __exit__(self, *args):
+        print("__exit___")
         self.f.close()
 
 def file_main():
@@ -48,9 +50,13 @@ def file_main():
         f.write("hello world")
         raise NameError
 
+def demo_main():
+    f = File('demo.txt','w')
+    del f
 if __name__ == "__main__":
     # main()
     # print("-"*10)
     # write_wrong() # 出现异常的时候只会调close()方法，保证之前的内容写到文件中
     # wrong() #读取的时候如果报异常会调用close()
-    file_main()
+    # file_main()
+    demo_main()
