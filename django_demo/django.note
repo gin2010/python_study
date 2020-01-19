@@ -1,21 +1,49 @@
-Django±Ê¼Ç
-1.´´½¨Ò»¸öÏîÄ¿test1
+Djangoç¬”è®°
+1.åˆ›å»ºä¸€ä¸ªé¡¹ç›®test1
 	django-admin startproject test1
-	Ä¿Â¼½á¹¹£º
-	settings.py£ºÏîÄ¿µÄÅäÖÃÎÄ¼ş
-	urls.py£ºurlÂ·ÓÉÅäÖÃ
-	wsgi.py£ºweb·şÎñÆ÷Óëdjango¿ò¼Ü½»»¥µÄÈë¿Ú
-	manage.py£ºÏîÄ¿Ó¦ÓÃ¹ÜÀíÎÄ¼ş
-2.´´½¨Ó¦ÓÃpython manage.py startapp booktest
-	Ä¿Â¼½á¹¹£º
-	models.py£ºÊı¾İ¿âÏà¹ØµÄÄÚÈİ
-	tests.py£ºĞ´²âÊÔ´úÂëµÄÎÄ¼ş
-	views.py£º½ÓÊÕÇëÇó²¢´¦Àí
-	admin.py£ºÍøÕ¾µÄºóÌ¨¹ÜÀíÏà¹ØµÄÎÄ¼ş
-3.¶ÔÓ¦ÓÃ½øĞĞ×¢²á
-	ÔÚsetting.pyÖĞINSTALLED_APPSÌí¼Óbooktest
-4.Éú³ÉÊı¾İ¿â±í½á¹¹£¨orm¿ò¼Ü£©
-	ÔÚmodel.py×Ô¶¨ÒåÒ»¸öÀà¼Ì³Ğmodels.Model£¬²¢Ôö¼ÓÊı¾İ¿â±íÃû
-	Éú³ÉÇ¨ÒÆÎÄ¼ş£ºpython manage.py makemigrations
-	Éú³ÉÊı¾İ¿â±í£ºpython manage.py migrate   £¨Ä¬ÈÏÊ¹ÓÃµÄÊÇsqlliteÊı¾İ¿â£¬id»á×Ô¶¯Éú³É£©
-5.½øÈëdjangoÖÕ¶Ë£ºpython manage.py shell
+	ç›®å½•ç»“æ„ï¼š
+	settings.py  é¡¹ç›®çš„é…ç½®æ–‡ä»¶
+	urls.py  urlè·¯ç”±é…ç½®
+	wsgi.py  web?æœåŠ¡å™¨ä¸djangoæ¡†æ¶äº¤äº’çš„å…¥å£
+	manage.py  é¡¹ç›®åº”ç”¨ç®¡ç†æ–‡ä»¶
+2.åˆ›å»ºåº”ç”¨ï¼špython manage.py startapp booktest
+	ç›®å½•ç»“æ„ï¼š
+	models.py  æ•°æ®åº“ç›¸å…³çš„å†…å®¹
+	tests.py  å†™æµ‹è¯•ä»£ç çš„æ–‡ä»¶
+	views.py  æ¥æ”¶è¯·æ±‚å¹¶å¤„ç†
+	admin.py  ç½‘ç«™çš„åå°ç®¡ç†ç›¸å…³çš„æ–‡ä»¶
+3.setting.py é…ç½®æ–‡ä»¶
+	INSTALLED_APPS æ·»åŠ  booktest # å¯¹åº”ç”¨è¿›è¡Œæ³¨å†Œ
+	TIME_ZONE = 'Asia/Shanghai'  # ä¿®æ”¹æ—¶é—´ä¸ºä¸­å›½ä¸Šæµ·(æ²¡æœ‰åŒ—äº¬)
+	TEMPLATESä¸­çš„dirså€¼  # é…ç½®æ¨¡æ¿ç›®å½•
+4ç”Ÿæˆæ•°æ®åº“è¡¨ç»“æ„(ormæ¡†æ¶)
+	åœ¨model.pyè‡ªå®šä¹‰ä¸€ä¸ªç±»ç»§æ‰¿models.Modelï¼Œå¹¶å¢åŠ æ•°æ®åº“è¡¨å
+	ç”Ÿæˆè¿ç§»æ–‡ä»¶ï¼špython manage.py makemigrations
+	ç”Ÿæˆæ•°æ®åº“è¡¨ï¼špython manage.py migrate   (é»˜è®¤ä½¿ç”¨sqlliteæ•°æ®åº“ï¼Œidä¼šè‡ªåŠ¨æ·»åŠ )
+5.è¿›å…¥djangoç»ˆç«¯ï¼špython manage.py shell
+6.modelsé‡Œçš„è¡¨æ“ä½œ
+	å±æ€§åä¸èƒ½ä½¿ç”¨åŒä¸‹åˆ’çº¿(ä¼šè·ŸæŸ¥è¯¢å†²çª)
+	b=BookInfo() # åˆ›å»ºæ•°æ®åº“è¡¨å¯¹è±¡
+	b.btitle="å¤©é¾™å…«éƒ¨" # èµ‹å€¼
+	b.save() # æ’å…¥æˆ–ä¿®æ”¹åä¿å­˜åˆ°æ•°æ®åº“è¡¨ä¸­
+	h=HeroInfo()
+	h.hbook=b # å¤–é”®å…³è”æ­¤æ—¶bè¿™ç¬”æ•°æ®
+	h2 =HeroInfo.objects.get(id=1) # æŸ¥è¯¢idä¸º1çš„æ•°æ®
+	b.heroinfo_set.all() # æŸ¥è¯¢BookInfoä¸­bè¿™ç¬”æ•°æ®å¯¹åº”HeroInfoä¸­å¤–é”®æ•°æ®
+	HeroInfo.objects.all() # æŸ¥è¯¢HeroInfoè¡¨ä¸­æ‰€æœ‰æ•°æ®
+	defaultä¸blank ä¸å½±å“è¡¨ç»“æ„ï¼Œæ— éœ€åšæ•°æ®è¿ç§»
+
+7.admin.py ç®¡ç†æ•°æ®åº“è¡¨
+	python manage.py createsuperuser åˆ›å»ºç®¡ç†å‘˜(http://127.0.0.1:8000/admin/)
+	list_display  å¯ä»¥æ§åˆ¶åå°è¡¨æŸ¥è¯¢æ—¶æ˜¾ç¤ºå“ªäº›å­—æ®µ
+8.urls.py é…ç½®urlä¸è§†å›¾çš„å…³ç³»(å…·ä½“çš„å¤„ç†è¿™ä¸ªurlçš„å‡½æ•°)
+	url(r'^index/*$',include('booktest.urls'))   #æ‰€æœ‰indexå¼€å¤´çš„äº¤ç»™booktest APPä¸‹é¢çš„urls.pyæ¥å¤„ç†
+9.templateé‡Œçš„å‚æ•°ä¼ é€’
+	ä¼ å…¥å˜é‡ï¼š{{ attrs}}
+	ä½¿ç”¨forå¾ªç¯ï¼š{% for attr in attrs %}
+					{{ attr }}
+				{% empty %}
+
+				{% endfor %}
+
+10.
