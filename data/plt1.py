@@ -79,8 +79,12 @@ def main5():
     #     data.append(random.randrange(80,140))
     # print(data)
     # 频数分布直方图
-    plt.hist(data)
-
+    d = 5
+    # plt.hist(data,d)
+    # 频率直方图
+    plt.hist(data,d,density=True)
+    plt.xticks(range(min(data),max(data)+d,d))
+    plt.grid()
     plt.show()
 
 
