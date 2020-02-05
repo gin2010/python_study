@@ -1,0 +1,5 @@
+##ignore this file##
+.DS_Store
+.idea
+/data
+.gitignore
