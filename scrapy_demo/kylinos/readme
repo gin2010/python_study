@@ -1,0 +1,5 @@
+target:爬取银河麒麟公司招聘职务：http://www.kylinos.cn/job_list.aspx?category_id=256
+       然后存储在docker里的mysql数据库中
+date:2020-02-22
+package:scrapy + pymysql
+
