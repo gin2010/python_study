@@ -7,10 +7,10 @@
 #          父类通过类方法可以直接访问类变量初始值，无法通过实例方法访问ancient的值
 
 class Person():
-    ancient = "yuanren"
+    ancient = "yuanren" #类变量
 
     def __init__(self, name, gender):
-        self.gender = gender
+        self.gender = gender #实例变量
         self.name = name
 
     @classmethod

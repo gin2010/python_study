@@ -50,5 +50,12 @@
 ## 20200216 jmeter测试工具教程(1-11) # https://www.bilibili.com/video/av34693639?p=8、
 ## 20200217 jmeter测试工具教程(12-14) 
 ## 20200218 jmeter测试工具教程(15-17) 
-## 20200219
-## 19mongoDB数据库01(01-06)
+## 20200220 jmeter测试工具教程(18-30) 
+## 20200221 Docker+Jenkins+Git集成持续部署(01-03)
+## 20200222 老男孩Jenkins持续集成实战1 # https://www.bilibili.com/video/av69439161
+## 20200223 老男孩Jenkins持续集成实战2
+## 20200226 19mongoDB数据库01(01-02)
+## 20200227 19mongoDB数据库01(03-06)
+
+
+## 

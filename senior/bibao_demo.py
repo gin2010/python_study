@@ -12,7 +12,6 @@ def f(k,b):
         return k*x+b
     return inner_f
 
-
 def main():
     f1 = f(3,4)
     print(f1(4))

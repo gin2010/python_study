@@ -8,21 +8,16 @@ class Foo():
     def __init__(self,name):
         self.name = name
 
-
     def get_bar(self):
         return self.name
-
 
     def set_bar(self,name):
         self.name = name
 
-
     def del_bar(self):
         del self.name
 
-
     BAR = property(get_bar,set_bar,del_bar)
-
 
 def main():
     f = Foo("xiaoxin")

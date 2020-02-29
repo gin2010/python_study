@@ -20,12 +20,9 @@ class Good():
     @price.deleter
     def price(self):
         del self.label_price
-
-
     # 未用property只能这样来修改价格
     # def set_price(self,value):
     #     self.label_price = value
-
 
 def main():
     g1 = Good()
