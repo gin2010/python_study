@@ -38,7 +38,7 @@ class Model(metaclass=ModelMetaclass):
     将User实例对象的值u的值组成args_temp，传入到sql语句
     '''
     def __init__(self,**kwargs):
-        print("kwargs---> ",kwargs)
+        print("model kwargs---> ",kwargs)
         for name,value in kwargs.items():
             setattr(self,name,value)
 
@@ -79,9 +79,10 @@ class User(Model):
 
 def main():
     u = User(uid=12345,name="micheal",email="test@126.com",password="1234")
+    u.__dict__
     u.save()
 
-# 尝试参数批量初始化
+# 下面只是尝试参数批量初始化--setattr使用
 class Person(object):
     # 使用字典传参数直接初始化
     def __init__(self,**kwargs):
@@ -98,6 +99,59 @@ def setattr_main():
     print(p1.city)
 
 
+# 第三--自己再次深度orm实现20200301
+# @Desc :orm实现思路
+#       1.执行m = Man()时，分别对Person、Man进行创建对象(new对象)，因此都调PersonMetaClass中__new__，
+#       2.只有Man对象调用__new__时，attrs字典里才有：{'name': 'man_name', 'age': 'man_age'}，
+#       3.将上述值单独保存为了 __mysql__：{'name': 'man_name', 'age': 'man_age'}，必须用魔法方法__XXX__方式；
+#       4.
+import copy
+class PersonMetaClass(type):
+    def __new__(cls, name, base, attrs):
+        # 1.分别对Person、Man进行创建对象
+        d = dict()
+        attrs_copy = copy.deepcopy(attrs)
+        # print('name->',name)
+        # print('attrs->',attrs)
+        #-->{'__qualname__': 'Man', 'name': 'man_name', 'age': 'man_age'}
+        for key in attrs_copy.keys():
+            if not key.startswith("__") and isinstance(attrs[key],str):
+                d[key] = attrs[key]
+                attrs.pop(key)
+        attrs['__mysql__'] = d # 必须用这种魔法方法的命名方式
+        attrs["__table__"] = name
+        # print("new---attrs:",attrs)
+        return type.__new__(cls,name,base,attrs)
+
+
+class Person(metaclass=PersonMetaClass):
+    # 使用字典传参数直接初始化
+    def __init__(self,**kwargs):
+        for k,v in kwargs.items():
+            setattr(self,k,v) # 获取值时对应getattr
+
+    def insert(self):
+
+        # print(Man.__dict__) #这样可以取到
+        print(self.__mysql__) # 否则只能用魔法方法的格式
+        fields = list() #数据库字段
+        values = list() #对应字段值
+        for k in self.__mysql__.keys():
+            fields.append(self.__mysql__[k])
+            values.append(getattr(self,k))
+        print('inset into {} {} values {}'.format(self.__table__,tuple(fields),tuple(values)))
+
+class Man(Person):
+    name = 'man_name'
+    age = 'man_age'
+
+
+def main_orm():
+    m = Man(name='xiaoming',age=22)
+    m.insert()
+
+
 if __name__ == "__main__":
-    main()
+    # main()
     # setattr_main()
+    main_magic()

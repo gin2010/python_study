@@ -3,20 +3,35 @@
 # Author: water
 # Date  : 2020/1/5
 # Desc  : 元类与类的控制器
-#第一种应用
-Test = type("Test",(object,),{"name":'xiaoming',"age":22})
+#       1.type创建类：type(类名，(父类,可为空)，{包含属性的字典})，无法实现创建时初始化时传入值
+#       2.metaclass元类为函数:
+#           class Demo(object,metaclass=upper_attr)
+#           编译器解析到类的名字、父类名、属性组成 ==> (class_name,parent_class,attr)，传入到元类的__new__中，
+#           因此从上到下执行upper_attr方法中语句，最后type(class_name,parent_class,new_attr)创建类，
+#           如果metaclass后面指定为一个函数，也会将(class_name,parent_class,attr)变量传入到这个函数中，
+#       3.metaclass元类为类:实现__new__方法
+#       4.一种控制器的实现
+
+# 第一：
+Test1 = type("Test1",(object,),{"name":'xiaoming',"age":22})
+def eat(self):
+    print("eat----")
+Test2 = type("Test2",(object,),{"name":"xiaobai","age":0,"eat":eat})
+# Test3 = type("Test3",(object,),dict(name=name))
 
 def main1():
-    t1 = Test()
+    t1 = Test1()
     print(t1.name)
     print(t1.age)
+    t2 = Test2()
+    t2.eat()
+    # t3 = Test3('xiaobai') #type无法实现
 
-
-# 第二种实现
+# 第二：
 def upper_attr(class_name,class_parent,class_attr):
     new_attr = dict()
     print('class_attr--->',class_attr)
-    # {'__module__': '__main__', '__qualname__': 'Demo', 'name': 'xiaoming', 'address': 'beijing'}
+    # {'__module__': '__main__', '__qualname__': 'Demo', 'name': 'xiaoming'}
     for name,value in class_attr.items():
         if not name.startswith("__"):
             new_attr[name.upper()] = value
@@ -24,19 +39,12 @@ def upper_attr(class_name,class_parent,class_attr):
 
 
 class Demo(object,metaclass=upper_attr):
-    '''编辑器解析到Demo()类的时候，就会将类的名字、父类名、属性组成 ==> (class_name,parent_class,attr)，
-    传入指定的type(class_name,parent_class,attr)创建类，相当于先调用类里面的__new__方法，而不是在d=Demo()的时候才开始new。
-    如果metaclass后面指定为一个函数，也会将(class_name,parent_class,attr)变量传入到这个函数中
-    '''
     name = "xiaoming"
-    address = "beijing"
-
 
 def main2():
     d = Demo()
     # print(d.name) # 报错
     print(d.NAME)
-    print(d.ADDRESS)
     print(Demo.__qualname__) # 显示类或类里面函数名称、所在的类、模块等梯级地址
 
 
@@ -55,24 +63,23 @@ class TypeClass(type):
 
 
 class Demo(object,metaclass=TypeClass):
-
     name = "xiaoming"
-    address = "beijing"
-
 
 def main3():
     d = Demo()
     # print(d.name) # 报错
     print(d.NAME)
-    print(d.ADDRESS)
 
-#第四种--手动创建类
+
+#第四--控制器的实现
 def controller(interface):
     if interface =="fpcx":
         class FPCX(object):
             def __init__(self):
                 print('fpcx--class')
-        return FPCX
+            def eat(self):
+                print("---eat---")
+        return FPCX()
     else:
         class SINGLE(object):
             def __init__(self):
@@ -81,12 +88,12 @@ def controller(interface):
 
 def main4():
     new_class = controller("fpcx")
-    # new_class = controller("12345")
-    new_class()
+    print(new_class)
+    new_class.eat()
 
 
 if __name__ == "__main__":
     # main1()
     # main2()
-    main3()
-    # main4()
+    # main3()
+    main4()
